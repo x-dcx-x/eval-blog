@@ -7,6 +7,7 @@ class User extends AbstractEntity
     private string $mail;
     private string $password;
     private string $image;
+    private Role $role;
 
     /**
      * @return string
@@ -77,21 +78,21 @@ class User extends AbstractEntity
     }
 
     /**
-     * @return string
+     * @return Role
      */
-    public function getRole(): string
+    public function getRole(): Role
     {
         return $this->role;
     }
 
     /**
-     * @param string $role
+     * @param Role $role
      */
-    public function setRole(string $role): self
+    public function setRole(Role $role): self
     {
         $this->role = $role;
         return $this;
     }
 
-    private string $role;
+
 }
