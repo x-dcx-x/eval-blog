@@ -7,7 +7,6 @@ use App\Model\Entity\Role;
 
 class RoleManager
 {
-    public const PREFIXTABLE = 'eval_blog';
     /**
      * @param int $id
      * @return Role
@@ -15,7 +14,7 @@ class RoleManager
     public static function getRoleById(int $id): Role
     {
         $role = new Role();
-        $stmt = DB::getPDO()->prepare("SELECT * FROM " . self::PREFIXTABLE . "role WHERE id = :id");
+        $stmt = DB::getPDO()->prepare("SELECT * FROM role WHERE id = :id");
 
         $stmt->bindValue(':id', $id);
         $stmt->execute();
@@ -35,7 +34,7 @@ class RoleManager
     {
         $role = new Role();
         $stmt = DB::getPDO()->query("
-            SELECT * FROM " . self::PREFIXTABLE . "role WHERE role_name = '".$roleName."'
+            SELECT * FROM role WHERE role_name = '".$roleName."'
         ");
         if($stmt && $roleData = $stmt->fetch()) {
             $role->setId($roleData['id']);
