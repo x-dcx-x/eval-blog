@@ -21,7 +21,6 @@ class UserManager
             ->setUsername($data['username'])
             ->setMail($data['mail'])
             ->setPassword($data['password'])
-            ->setImage($data['image'])
             ->setRole($role)
             ;
     }
@@ -105,14 +104,13 @@ class UserManager
     public static function addUser(User $user): bool
     {
         $stmt = DB::getPDO()->prepare("
-            INSERT INTO user (username, mail, password, image ,role_id)
-            VALUES (:username, :mail, :password, :image ,:role_id) 
+            INSERT INTO user (username, mail, password ,role_id)
+            VALUES (:username, :mail, :password ,:role_id) 
         ");
 
         $stmt->bindValue(':username', $user->getUsername());
         $stmt->bindValue(':mail', $user->getMail());
         $stmt->bindValue(':password', $user->getPassword());
-        $stmt->bindValue(':image', $user->getImage());
         $stmt->bindValue(':role_id', $user->getRole()->getId());
 
         $stmt = $stmt->execute();
@@ -243,21 +241,5 @@ class UserManager
 
         return $stmt->execute();
 
-    }
-
-    /**
-     * Get image name for a user
-     * @param $newImage
-     * @param $id
-     * @return void
-     */
-    public static function userImage($newImage, $id)
-    {
-        $stmt = DB::getPDO()->prepare("UPDATE user SET image = :image  WHERE id = :id");
-
-        $stmt->bindParam(':image', $newImage);
-        $stmt->bindParam(':id', $id);
-
-        $stmt->execute();
     }
 }

@@ -97,7 +97,7 @@ class AbstractController
      */
     public static function writerConnected(): bool
     {
-        return isset($_SESSION['user']) && $_SESSION['user']->getRole()->getRoleName() === 'writer';
+        return isset($_SESSION['user']) && $_SESSION['user']->getRole()->getRoleName() === 'author';
 
     }
 

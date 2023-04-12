@@ -15,7 +15,7 @@ class Routing
      */
     private static function param(string $key, $default = null): ?string
     {
-        if (isset($_GET[$key])) {
+        if(isset($_GET[$key])) {
             return filter_var($_GET[$key], FILTER_SANITIZE_STRING);
         }
         return $default;
@@ -36,7 +36,7 @@ class Routing
         }
 
         $action = lcfirst($action);
-        if (method_exists($controller, $action)) {
+        if(method_exists($controller, $action)) {
             return $action;
         }
 
@@ -44,7 +44,7 @@ class Routing
     }
 
     /**
-     * Check that the controllers are correct, if not, redirect to an error page.
+     * Check that the controllers are correct, if not, redirect to a 404 page.
      * @param string $controller
      * @return ErrorController|mixed
      */
@@ -55,7 +55,6 @@ class Routing
             return new $controller();
         }
         return new ErrorController();
-
     }
 
     /**
@@ -68,23 +67,23 @@ class Routing
         $action = self::param('a');
         $controller = self::guessController($paramController);
         $id = self::param('id');
-
-        //Returns the error page if the controller is not found, and we quit the script
-        if ($controller instanceof ErrorController) {
-            $controller->error404();
+        //Returns the 404 page if the controller is not found, and we quit the script
+        if($controller instanceof ErrorController) {
+            $controller->error404($paramController);
             exit();
         }
 
         //Verification of the presence of controller
         $action = self::guessMethod($controller, $action);
-        //Checks if a controller id is needed
-        if ($action !== null) {
+        if($action !== null) {
             if ($id !== null) {
                 $controller->$action($id);
-            } else {
+            }
+            else {
                 $controller->$action();
             }
-        } else {
+        }
+        else {
             $controller->index();
         }
     }

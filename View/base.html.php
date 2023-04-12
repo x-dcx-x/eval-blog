@@ -9,6 +9,33 @@
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
+<?php
+if (isset($_SESSION['errors'])) {
+    $errors = $_SESSION['errors'];
+    unset($_SESSION['errors']);
+    ?>
+    <div class="message error">
+        <?= $errors ?>
+    </div> <?php
+}
+
+// Handling success messages.
+if (isset($_SESSION['success'])) {
+    $success = $_SESSION['success'];
+    unset($_SESSION['success']);
+    ?>
+    <div class="message success">
+        <?= $success ?>
+    </div> <?php
+}
+?>
+<nav>
+    <ul>
+        <li><a href="/index.php?c=user&a=registerPage">register</a></li>
+        <li><a href="/index.php?c=article&a=articleForm">ajout article</a></li>
+    </ul>
+
+</nav>
     <main class="container">
         <?= $html ?>
     </main>
