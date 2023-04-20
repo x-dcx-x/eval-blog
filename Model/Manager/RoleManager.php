@@ -55,7 +55,7 @@ class RoleManager
         $request->execute();
         if($roleData = $request->fetch()) {
             $role->setId($roleData['id']);
-            $role->setRoleName($roleData['role_name']);
+            $role->setRoleName($roleData['roleName']);
         }
         return $role;
     }

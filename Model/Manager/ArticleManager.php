@@ -25,6 +25,7 @@ class ArticleManager
                     ->setId($articleData['id'])
                     ->setUser($userManager->getUser($articleData['user_id']))
                     ->setContent($articleData['content'])
+                    ->setImage($articleData['image'])
                     ->setTitle($articleData['title']);
             }
         }
@@ -45,6 +46,7 @@ class ArticleManager
             ->setId($id)
             ->setContent($result ['content'])
             ->setTitle($result['title'])
+            ->setImage($result['image'])
             ->setUser(UserManager::getUser($result['user_id']));
     }
 

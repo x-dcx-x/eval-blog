@@ -5,12 +5,20 @@ namespace App\Controller;
 use App\Model\Entity\Article;
 use App\Model\Manager\ArticleManager;
 use Exception;
+use Model\Manager\CommentManager;
 
 
 class ArticleController extends AbstractController
 {
     public function articleForm() {
         $this->render('article/formAddArticle');
+    }
+
+    public function displayArticle($id) {
+        $this->render('article/displayArticle', [
+            'article' => ArticleManager::getArticle($id),
+            'comment' => CommentManager::getCommentByArticleId($id)
+        ]);
     }
 
     public function addArticle() {
@@ -32,9 +40,8 @@ class ArticleController extends AbstractController
         //Add the article
         ArticleManager::addArticle($article);
 
-
         //Redirection to the writer's area
-        $this->render('writer/writer');
+        $this->render('home/index');
     }
 
     public function addImage(): string

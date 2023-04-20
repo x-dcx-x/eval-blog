@@ -11,7 +11,7 @@ class CommentManager
     public function addNewComment(Comment $comment): bool
     {
         $stmt = DB::getPDO()->prepare("
-           INSERT INTO " . self::PREFIXTABLE . "comment(content, article_id ,user_id) VALUES (:content, :article_id ,:user_id) 
+           INSERT INTO comment(content, article_id ,user_id) VALUES (:content, :article_id ,:user_id) 
         ");
 
         $stmt->bindValue(':content', $comment->getContent());
@@ -30,9 +30,9 @@ class CommentManager
         $comment = [];
         //Add a limit to the number of visible comments
         if ($limit === 0) {
-            $stmt = DB::getPDO()->query("SELECT * FROM " . self::PREFIXTABLE . "comment ");
+            $stmt = DB::getPDO()->query("SELECT * FROM comment ");
         } else {
-            $stmt = DB::getPDO()->query("SELECT * FROM " . self::PREFIXTABLE . "comment ORDER BY id DESC LIMIT " . $limit);
+            $stmt = DB::getPDO()->query("SELECT * FROM comment ORDER BY id DESC LIMIT " . $limit);
         }
 
         if ($stmt) {
@@ -56,7 +56,7 @@ class CommentManager
      */
     public static function commentExist(int $id)
     {
-        $stmt = DB::getPDO()->query("SELECT count(*) FROM " . self::PREFIXTABLE . "comment WHERE id = '$id'");
+        $stmt = DB::getPDO()->query("SELECT count(*) FROM comment WHERE id = '$id'");
         return $stmt ? $stmt->fetch(): 0;
     }
 
@@ -67,7 +67,7 @@ class CommentManager
      */
     public static function getComment(int $id): Comment
     {
-        $stmt = DB::getPDO()->query("SELECT * FROM " . self::PREFIXTABLE . "comment WHERE id = '$id'");
+        $stmt = DB::getPDO()->query("SELECT * FROM comment WHERE id = '$id'");
         $stmt = $stmt->fetch();
         return (new Comment())
             ->setId($id)
@@ -85,7 +85,7 @@ class CommentManager
     public static function getCommentByArticleId($id): array
     {
         $comment = [];
-        $stmt = DB::getPDO()->query("SELECT * FROM " . self::PREFIXTABLE . "comment WHERE article_id = '$id'");
+        $stmt = DB::getPDO()->query("SELECT * FROM comment WHERE article_id = '$id'");
 
         if($stmt) {
             foreach ($stmt->fetchAll() as $data) {
@@ -108,7 +108,7 @@ class CommentManager
     public static function editComment($newContent, $id)
     {
         $stmt = DB::getPDO()->prepare("
-            UPDATE " . self::PREFIXTABLE . "comment SET content = :newContent WHERE id = :id
+            UPDATE comment SET content = :newContent WHERE id = :id
         ");
 
         $stmt->bindParam('newContent', $newContent);
@@ -125,7 +125,7 @@ class CommentManager
     {
         if(self::commentExist($comment->getId())) {
             return DB::getPDO()->exec("
-                DELETE FROM " . self::PREFIXTABLE . "comment WHERE id = {$comment->getId()}
+                DELETE FROM comment WHERE id = {$comment->getId()}
             ");
         }
         return false;

@@ -70,14 +70,14 @@ class UserManager
      * @param string $username
      * @return User|null
      * Ont utilise prepare ( est une fonction plus sécurisé servant a l intérogation du client vers la base donnée)
-     * selection de toute les données de la table user dans la quel ce trouve la collone username dans la base de donnée
-     *et si l execution echoue il ne retourne null
-     * public static function / c est le satut de la fonction ! / qui ne peut pas etre modifier ! / Et etre apeller ailleurs dans un autre objet ( exemple userController)!
-     *(string $username) car c est une chaine de caractère  et que l  ont apelle le $Username car ont veux recupérer le utilisateur
+     * selection de toutes les données de la table user dans la quel se trouve la collone username dans la base de donnée
+     *et si l'execution echoue il nous retourne null
+     * public static function / c est le statut de la fonction ! / qui ne peut pas etre modifier ! / Et etre apeller ailleurs dans un autre objet ( exemple userController)!
+     *(string $username) car c'est une chaine de caractère  et que l'ont apelle le $Username car ont veux recupérer le utilisateur
      * (?User)  le ? veux dire Null si il ne trouve pas de données /et le User c est mon Entity User.php
      * DB::getPDO() connection a la base de donnée entraine la flèche
      * ->  la flèche entraine la préparation pour faire l'execution de la demande  ("SELECT * FROM user WHERE username = :username");(pas de préfixé de table pour le moment )
-     * "SELECT * FROM ca te selctionne toute les données de la collonne présente dans ta table demandé
+     * "SELECT * FROM ca te selctionne toute les données de la collonne présente dans ta table demander
      *
      */
     public static function getUserByName(string $username): ?User

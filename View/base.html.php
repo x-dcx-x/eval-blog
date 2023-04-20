@@ -28,11 +28,15 @@ if (isset($_SESSION['success'])) {
         <?= $success ?>
     </div> <?php
 }
+
+var_dump($_SESSION['user']);
 ?>
 <nav>
     <ul>
+        <li><a href="/index.php?c=home&a=index">Home</a></li>
         <li><a href="/index.php?c=user&a=registerPage">register</a></li>
         <li><a href="/index.php?c=article&a=articleForm">ajout article</a></li>
+        <li><a href="/index.php?c=user&a=loginPage">Connexion</a></li>
     </ul>
 
 </nav>

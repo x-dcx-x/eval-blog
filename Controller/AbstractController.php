@@ -36,7 +36,7 @@ class AbstractController
      * @return bool
      */
     public function formSubmit():bool{
-        return isset($_POST['submit']);
+        return isset($_POST['submit']);//Cleans and return the security of elements
     }
 
     /**
@@ -97,7 +97,7 @@ class AbstractController
      */
     public static function writerConnected(): bool
     {
-        return isset($_SESSION['user']) && $_SESSION['user']->getRole()->getRoleName() === 'author';
+        return isset($_SESSION['user']) && $_SESSION['user']->getRole()->getId() === 2;
 
     }
 
